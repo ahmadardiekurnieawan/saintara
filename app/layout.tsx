@@ -3,9 +3,33 @@ import './globals.css'
 import SessionProvider from '@/components/providers/SessionProvider'
 
 export const metadata: Metadata = {
-  title: 'SAINTARA - Human Intelligence Assessment',
-  description: 'Platform penilaian kecerdasan manusia berbasis AI. Kenali potensi terdalammu.',
+  metadataBase: new URL('https://saintara.id'),
+  title: {
+    default: 'SAINTARA — Human Intelligence Assessment',
+    template: '%s · SAINTARA',
+  },
+  description:
+    'Petakan profil kecerdasan multidimensimu ke dalam laporan personal yang jernih dan dapat ditindaklanjuti. Dirancang untuk pertumbuhan nyata.',
+  keywords: ['kecerdasan', 'multiple intelligences', 'assessment', 'pengembangan diri', 'SAINTARA'],
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/icons/icon-192x192.svg',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    title: 'SAINTARA — Human Intelligence Assessment',
+    description:
+      'Petakan profil kecerdasan multidimensimu ke dalam laporan personal yang jernih dan dapat ditindaklanjuti.',
+    siteName: 'SAINTARA',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SAINTARA — Human Intelligence Assessment',
+    description: 'Petakan profil kecerdasan multidimensimu ke dalam laporan personal yang jernih dan dapat ditindaklanjuti.',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
