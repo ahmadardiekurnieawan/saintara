@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #121212;
+  --navy: #0F172A;
+  --gold: #C59830;
+  --white: #FFFFFF;
+  --surface: #F8F8F6;
+  --ai-blue: #2563EB;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #121212;
+  background-color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 { font-family: 'Cinzel', serif; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F8F8F6; }
+::-webkit-scrollbar-thumb { background: #C59830; border-radius: 3px; }
+
+@layer components {
+  .btn-primary { @apply bg-primary text-white px-6 py-3 rounded-xl font-semibold font-montserrat transition-all duration-200 hover:bg-navy hover:shadow-card-hover active:scale-95; }
+  .btn-gold { @apply bg-gold text-white px-6 py-3 rounded-xl font-semibold font-montserrat transition-all duration-200 hover:bg-gold-light hover:shadow-gold active:scale-95; }
+  .btn-outline { @apply border-2 border-primary text-primary px-6 py-3 rounded-xl font-semibold font-montserrat transition-all duration-200 hover:bg-primary hover:text-white active:scale-95; }
+  .card { @apply bg-white rounded-2xl shadow-card p-6 transition-all duration-200; }
+  .card-hover { @apply card hover:shadow-card-hover hover:-translate-y-0.5; }
+  .input-field { @apply w-full px-4 py-3 rounded-xl border border-border bg-white text-primary placeholder-muted focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 font-montserrat; }
+  .section-title { @apply font-cinzel text-3xl md:text-4xl font-bold text-primary; }
+  .section-subtitle { @apply font-montserrat text-muted text-lg mt-3; }
+  .badge { @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-montserrat; }
+  .badge-gold { @apply badge bg-gold/10 text-gold border border-gold/20; }
+  .badge-navy { @apply badge bg-navy/10 text-navy border border-navy/20; }
+  .badge-blue { @apply badge bg-ai-blue/10 text-ai-blue border border-ai-blue/20; }
+}
+
+@layer utilities {
+  .font-cinzel { font-family: 'Cinzel', serif; }
+  .font-montserrat { font-family: 'Montserrat', sans-serif; }
+  .gradient-text {
+    background: linear-gradient(135deg, #C59830, #D4A843);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glass {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+  background-size: 1000px 100%;
+}
