@@ -9,21 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#121212',
+        primary: '#0F172A',
         ink: '#0A0E1A',
         navy: '#0F172A',
         gold: '#C59830',
         'gold-light': '#D4A843',
         'gold-dark': '#A87E22',
-        surface: '#F8F8F6',
-        cream: '#FBFAF7',
+        surface: '#F5F6F8',
+        cream: '#FAFBFC',
         'ai-blue': '#2563EB',
-        muted: '#6B7280',
-        border: '#E5E7EB',
+        muted: '#64748B',
+        border: '#E6E8EC',
       },
       fontFamily: {
-        cinzel: ['Cinzel', 'Georgia', 'serif'],
-        montserrat: ['Montserrat', 'system-ui', 'sans-serif'],
+        // remapped to a modern tech-platform type system (Inter / Inter Tight)
+        cinzel: ['"Inter Tight"', 'Inter', 'system-ui', 'sans-serif'],
+        montserrat: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Inter Tight"', 'Inter', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         widest: '0.2em',

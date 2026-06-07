@@ -4,11 +4,10 @@ import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import Reveal from '@/components/ui/Reveal'
 import MiniRadar from './MiniRadar'
-import { ArrowRight, Check, Briefcase } from 'lucide-react'
+import { ArrowRight, Check, Briefcase, Compass, Target, Lightbulb, Users, type LucideIcon } from 'lucide-react'
 
 interface Persona {
-  emoji: string
-  color: string
+  icon: LucideIcon
   type: string
   dominant: string
   tagline: string
@@ -20,50 +19,46 @@ interface Persona {
 
 const PERSONAS: Persona[] = [
   {
-    emoji: '🦅',
-    color: '#0F172A',
+    icon: Compass,
     type: 'Pemimpin Visioner',
     dominant: 'Interpersonal',
     tagline: 'Menggerakkan orang menuju visi bersama',
     description:
-      'Kamu melihat gambaran besar lebih dulu dari orang lain dan punya naluri alami untuk menyatukan tim di sekitarnya. Kekuatanmu adalah arah dan momentum.',
-    scores: [78, 70, 66, 64, 60, 92],
+      'Kamu melihat gambaran besar lebih dulu dari orang lain dan punya naluri alami untuk menyatukan tim. Kekuatanmu adalah arah dan momentum.',
+    scores: [74, 58, 49, 61, 52, 93],
     strengths: ['Kepemimpinan alami', 'Visi jangka panjang', 'Komunikasi yang menggerakkan'],
     career: { title: 'CEO / Direktur Eksekutif', match: 94 },
   },
   {
-    emoji: '🔭',
-    color: '#2563EB',
+    icon: Target,
     type: 'Analis Strategis',
     dominant: 'Logis-Matematis',
     tagline: 'Mengubah kompleksitas menjadi keputusan',
     description:
       'Pikiranmu memproses informasi rumit dengan cepat dan menyusunnya menjadi strategi konkret. Kamu pemecah masalah yang tidak berhenti di permukaan.',
-    scores: [72, 94, 81, 64, 58, 77],
-    strengths: ['Pemikiran analitis tajam', 'Problem-solving sistematis', 'Pengambilan keputusan berbasis data'],
+    scores: [70, 95, 81, 52, 47, 76],
+    strengths: ['Pemikiran analitis tajam', 'Problem-solving sistematis', 'Keputusan berbasis data'],
     career: { title: 'Data Scientist', match: 96 },
   },
   {
-    emoji: '✨',
-    color: '#C59830',
+    icon: Lightbulb,
     type: 'Kreator Inovatif',
     dominant: 'Spasial',
     tagline: 'Menemukan koneksi yang orang lain lewatkan',
     description:
       'Kreativitasmu mengalir tanpa henti. Kamu mengubah ide abstrak menjadi karya nyata dan melihat pola yang tak terlihat oleh kebanyakan orang.',
-    scores: [80, 68, 93, 70, 82, 71],
+    scores: [78, 55, 94, 64, 85, 60],
     strengths: ['Kreativitas tanpa batas', 'Imajinasi spasial kuat', 'Inovasi lintas disiplin'],
     career: { title: 'Creative Director', match: 95 },
   },
   {
-    emoji: '🌿',
-    color: '#059669',
+    icon: Users,
     type: 'Penjaga Harmoni',
     dominant: 'Interpersonal',
     tagline: 'Menjembatani perbedaan, membangun kepercayaan',
     description:
       'Kehadiranmu membawa ketenangan. Kamu peka terhadap dinamika orang dan menciptakan lingkungan di mana semua orang merasa dihargai.',
-    scores: [76, 64, 62, 68, 74, 90],
+    scores: [80, 56, 51, 66, 72, 90],
     strengths: ['Empati tinggi', 'Resolusi konflik', 'Membangun budaya tim'],
     career: { title: 'HR Director', match: 93 },
   },
@@ -77,9 +72,9 @@ export default function ReportPreview() {
 
   return (
     <section id="sample" className="relative py-24 lg:py-32 bg-cream overflow-hidden">
-      <div className="absolute inset-0 bg-dots-light opacity-60 pointer-events-none" aria-hidden />
+      <div className="absolute inset-0 bg-dots-light opacity-70 pointer-events-none" aria-hidden />
       <div className="relative max-w-container mx-auto px-5 sm:px-6 lg:px-8">
-        <Reveal className="text-center max-w-2xl mx-auto mb-14">
+        <Reveal className="max-w-2xl mb-12">
           <span className="eyebrow mb-4">Contoh Laporan</span>
           <h2 className="section-title text-balance">Lihat hasilnya, sebelum mendaftar</h2>
           <p className="section-subtitle">
@@ -88,42 +83,40 @@ export default function ReportPreview() {
         </Reveal>
 
         {/* Persona selector */}
-        <Reveal delay={80} className="flex flex-wrap justify-center gap-2.5 mb-10">
-          {PERSONAS.map((persona, i) => (
-            <button
-              key={persona.type}
-              onClick={() => setActive(i)}
-              className={`group inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-montserrat font-medium transition-all duration-300 ${
-                i === active
-                  ? 'border-gold bg-white text-primary shadow-soft'
-                  : 'border-border bg-white/60 text-muted hover:border-gold/40 hover:text-primary'
-              }`}
-            >
-              <span className="text-base">{persona.emoji}</span>
-              {persona.type}
-            </button>
-          ))}
+        <Reveal delay={80} className="flex flex-wrap gap-2.5 mb-8">
+          {PERSONAS.map((persona, i) => {
+            const Icon = persona.icon
+            return (
+              <button
+                key={persona.type}
+                onClick={() => setActive(i)}
+                className={`group inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+                  i === active
+                    ? 'border-ink bg-ink text-white shadow-soft'
+                    : 'border-border bg-white text-muted hover:border-slate-300 hover:text-primary'
+                }`}
+              >
+                <Icon size={15} className={i === active ? 'text-gold' : 'text-slate-400 group-hover:text-primary'} />
+                {persona.type}
+              </button>
+            )
+          })}
         </Reveal>
 
         {/* Report card */}
         <Reveal delay={120}>
-          <div className="max-w-4xl mx-auto rounded-3xl bg-white border border-border shadow-elevated overflow-hidden">
+          <div className="max-w-4xl rounded-3xl bg-white border border-border shadow-elevated overflow-hidden">
             <div className="grid md:grid-cols-2">
               {/* Left: visualization */}
-              <div className="relative p-7 sm:p-9 border-b md:border-b-0 md:border-r border-border bg-surface/40">
+              <div className="relative p-7 sm:p-9 border-b md:border-b-0 md:border-r border-border bg-surface/50">
                 <div className="flex items-center gap-3.5 mb-6">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0 transition-colors duration-300"
-                    style={{ backgroundColor: `${p.color}18`, border: `2px solid ${p.color}33` }}
-                  >
-                    {p.emoji}
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-ink">
+                    <p.icon size={20} className="text-gold" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-montserrat uppercase tracking-widest text-muted">Tipe Karakter</p>
-                    <h3 className="font-cinzel font-bold text-xl text-primary leading-tight">{p.type}</h3>
-                    <p className="text-xs font-montserrat font-medium" style={{ color: p.color }}>
-                      Dominan · {p.dominant}
-                    </p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted">Tipe Karakter</p>
+                    <h3 className="font-display font-bold text-xl text-primary leading-tight tracking-tight">{p.type}</h3>
+                    <p className="text-xs font-medium text-muted">Dominan · {p.dominant}</p>
                   </div>
                 </div>
 
@@ -134,30 +127,30 @@ export default function ReportPreview() {
 
               {/* Right: details */}
               <div key={`d-${active}`} className="p-7 sm:p-9 animate-fade-in">
-                <p className="text-sm font-montserrat font-semibold text-gold mb-2">{p.tagline}</p>
-                <p className="text-muted text-sm leading-relaxed font-montserrat mb-6">{p.description}</p>
+                <p className="text-[15px] font-semibold text-primary mb-2">{p.tagline}</p>
+                <p className="text-muted text-[15px] leading-relaxed mb-6">{p.description}</p>
 
-                <p className="text-[11px] font-montserrat uppercase tracking-widest text-muted mb-3">Kekuatan Utama</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted mb-3">Kekuatan Utama</p>
                 <ul className="space-y-2.5 mb-7">
                   {p.strengths.map((s) => (
-                    <li key={s} className="flex items-start gap-2.5 text-sm font-montserrat text-primary">
+                    <li key={s} className="flex items-start gap-2.5 text-[15px] text-primary">
                       <span className="mt-0.5 w-4 h-4 rounded-full bg-gold/15 flex items-center justify-center shrink-0">
-                        <Check size={11} className="text-gold" />
+                        <Check size={11} className="text-gold-dark" />
                       </span>
                       {s}
                     </li>
                   ))}
                 </ul>
 
-                <div className="flex items-center gap-3 rounded-2xl bg-surface/70 border border-border p-4">
-                  <span className="w-9 h-9 rounded-xl bg-navy/10 flex items-center justify-center shrink-0">
-                    <Briefcase size={16} className="text-navy" />
+                <div className="flex items-center gap-3 rounded-2xl bg-surface border border-border p-4">
+                  <span className="w-9 h-9 rounded-xl bg-white border border-border flex items-center justify-center shrink-0">
+                    <Briefcase size={16} className="text-primary" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-montserrat text-muted leading-none mb-1">Rekomendasi karier teratas</p>
-                    <p className="text-sm font-semibold font-montserrat text-primary leading-tight">{p.career.title}</p>
+                    <p className="text-[11px] text-muted leading-none mb-1">Rekomendasi karier teratas</p>
+                    <p className="text-sm font-semibold text-primary leading-tight">{p.career.title}</p>
                   </div>
-                  <span className="rounded-full bg-gold/10 text-gold border border-gold/20 px-2.5 py-1 text-xs font-bold font-montserrat shrink-0">
+                  <span className="rounded-full bg-ink text-white px-2.5 py-1 text-xs font-bold shrink-0">
                     {p.career.match}%
                   </span>
                 </div>
@@ -165,12 +158,12 @@ export default function ReportPreview() {
             </div>
 
             {/* Footer CTA */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-7 sm:px-9 py-5 border-t border-border bg-surface/50">
-              <p className="text-sm font-montserrat text-muted text-center sm:text-left">
-                Ini hanya cuplikan — laporan lengkap mencakup analisis mendalam &amp; action plan.
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-7 sm:px-9 py-5 border-t border-border bg-surface/40">
+              <p className="text-sm text-muted text-center sm:text-left">
+                Ini hanya cuplikan—laporan lengkap mencakup analisis mendalam &amp; action plan.
               </p>
               <Link href="/register" className="shrink-0">
-                <Button variant="gold" size="md" className="shadow-gold group">
+                <Button variant="primary" size="md" className="group">
                   Buat laporanku
                   <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                 </Button>

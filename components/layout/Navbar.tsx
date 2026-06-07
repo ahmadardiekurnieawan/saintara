@@ -39,10 +39,10 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       <div className="max-w-container mx-auto px-5 sm:px-6 lg:px-8">
         <div className={cn('flex items-center justify-between transition-all duration-300', scrolled ? 'h-14' : 'h-16')}>
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-gradient-gold rounded-xl flex items-center justify-center shadow-gold">
-              <span className="text-white font-cinzel font-bold text-sm">S</span>
+            <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center border transition-colors', solid ? 'bg-ink border-ink' : 'bg-white/[0.06] border-white/15')}>
+              <span className="text-gold font-display font-bold text-sm">S</span>
             </div>
-            <span className={cn('font-cinzel font-bold text-lg tracking-tight transition-colors', solid ? 'text-primary' : 'text-white')}>
+            <span className={cn('font-display font-bold text-lg tracking-tight transition-colors', solid ? 'text-primary' : 'text-white')}>
               SAINTARA
             </span>
           </Link>
@@ -69,7 +69,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               </Button>
             </Link>
             <Link href="/register">
-              <Button variant="gold" size="sm">Mulai gratis</Button>
+              <Button variant={solid ? 'primary' : 'light'} size="sm">Mulai gratis</Button>
             </Link>
           </div>
 
@@ -101,7 +101,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 <Button variant="outline" size="sm" fullWidth>Masuk</Button>
               </Link>
               <Link href="/register" className="flex-1" onClick={() => setMenuOpen(false)}>
-                <Button variant="gold" size="sm" fullWidth>Mulai gratis</Button>
+                <Button variant="primary" size="sm" fullWidth>Mulai gratis</Button>
               </Link>
             </div>
           </div>

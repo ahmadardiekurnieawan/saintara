@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'gold' | 'outline' | 'ghost' | 'danger'
+  variant?: 'primary' | 'gold' | 'light' | 'outline' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg' | 'xl'
   loading?: boolean
   fullWidth?: boolean
@@ -12,11 +12,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, fullWidth, children, disabled, ...props }, ref) => {
-    const base = 'inline-flex items-center justify-center font-semibold font-montserrat rounded-xl transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2'
+    const base = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2'
     const variants = {
-      primary: 'bg-primary text-white hover:bg-navy focus:ring-primary shadow-sm',
-      gold: 'bg-gold text-white hover:bg-gold-light focus:ring-gold shadow-sm hover:shadow-gold',
-      outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary bg-transparent',
+      primary: 'bg-ink text-white hover:bg-primary focus:ring-ink shadow-sm',
+      light: 'bg-white text-ink hover:bg-slate-100 focus:ring-white shadow-sm',
+      gold: 'bg-gold text-white hover:bg-gold-light focus:ring-gold shadow-sm',
+      outline: 'border border-border text-primary hover:bg-surface focus:ring-primary bg-transparent',
       ghost: 'text-primary hover:bg-surface focus:ring-primary bg-transparent',
       danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
     }
