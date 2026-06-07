@@ -8,6 +8,9 @@ node_modules/
 # auto-generated
 next-env.d.ts
 
+# local review/screenshot artifacts
+.shots/
+
 # next-pwa generated service worker (build artifacts)
 public/sw.js
 public/sw.js.map
