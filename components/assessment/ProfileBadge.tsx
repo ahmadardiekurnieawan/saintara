@@ -1,30 +1,32 @@
+import { characterIcon, characterEssence } from '@/lib/character'
 import { cn } from '@/lib/utils'
 
 interface ProfileBadgeProps {
-  emoji: string
   characterType: string
-  name: string
-  color: string
   dominantIntelligence: string
   size?: 'sm' | 'md' | 'lg'
 }
 
-export default function ProfileBadge({ emoji, characterType, name, color, dominantIntelligence, size = 'md' }: ProfileBadgeProps) {
+export default function ProfileBadge({ characterType, dominantIntelligence, size = 'md' }: ProfileBadgeProps) {
+  const Icon = characterIcon(characterType)
   const sizes = {
-    sm: { emoji: 'text-3xl', circle: 'w-16 h-16', name: 'text-base', type: 'text-xs' },
-    md: { emoji: 'text-5xl', circle: 'w-24 h-24', name: 'text-xl', type: 'text-sm' },
-    lg: { emoji: 'text-6xl', circle: 'w-32 h-32', name: 'text-2xl', type: 'text-base' },
+    sm: { tile: 'w-14 h-14', icon: 24, title: 'text-lg' },
+    md: { tile: 'w-20 h-20', icon: 32, title: 'text-2xl' },
+    lg: { tile: 'w-24 h-24', icon: 40, title: 'text-3xl' },
   }
   const s = sizes[size]
+
   return (
-    <div className="flex flex-col items-center gap-3 text-center">
-      <div className={cn('rounded-full flex items-center justify-center shadow-lg', s.circle)} style={{ backgroundColor: `${color}15`, border: `3px solid ${color}30` }}>
-        <span className={s.emoji}>{emoji}</span>
+    <div className="flex flex-col items-center gap-4 text-center">
+      <div className={cn('rounded-3xl flex items-center justify-center bg-white/[0.06] border border-white/12', s.tile)}>
+        <Icon size={s.icon} className="text-gold" strokeWidth={1.5} />
       </div>
       <div>
-        <p className={cn('font-cinzel font-bold text-white', s.name)}>{name}</p>
-        <p className={cn('font-medium font-montserrat mt-0.5', s.type)} style={{ color: '#C59830' }}>{characterType}</p>
-        <p className="text-xs text-white/60 font-montserrat mt-1">Kecerdasan Dominan: <span className="font-semibold text-white">{dominantIntelligence}</span></p>
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/50 mb-1.5">{characterEssence(characterType)}</p>
+        <p className={cn('font-display font-bold text-white tracking-tight', s.title)}>{characterType}</p>
+        <p className="text-sm text-white/55 mt-1.5">
+          Kecerdasan dominan · <span className="font-semibold text-white/80">{dominantIntelligence}</span>
+        </p>
       </div>
     </div>
   )

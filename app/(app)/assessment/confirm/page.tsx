@@ -1,10 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/ui/Button'
-import { AlertTriangle, User, Calendar, Droplets, ArrowLeft } from 'lucide-react'
-import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
+import AssessmentSteps from '@/components/assessment/AssessmentSteps'
+import { User, Calendar, Droplet, ArrowLeft, ArrowRight, AlertTriangle } from 'lucide-react'
+import { formatDate } from '@/lib/utils'
 
 interface DraftData { name: string; birthDate: string; bloodType: string }
 
@@ -21,41 +22,55 @@ export default function ConfirmPage() {
 
   async function handleConfirm() {
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 500))
+    await new Promise((r) => setTimeout(r, 400))
     router.push('/assessment/processing')
   }
 
   if (!draft) return null
 
+  const rows = [
+    { icon: User, label: 'Nama Lengkap', value: draft.name },
+    { icon: Calendar, label: 'Tanggal Lahir', value: formatDate(draft.birthDate) },
+    { icon: Droplet, label: 'Golongan Darah', value: draft.bloodType },
+  ]
+
   return (
-    <div className="flex-1 max-w-lg mx-auto w-full px-4 py-6">
-      <div className="mb-6">
-        <Link href="/assessment" className="inline-flex items-center gap-2 text-muted hover:text-primary text-sm font-montserrat mb-4"><ArrowLeft size={16} /> Kembali</Link>
-        <h1 className="font-cinzel text-2xl font-bold text-primary mb-2">Konfirmasi Data</h1>
-        <p className="text-muted text-sm font-montserrat">Periksa kembali data yang Anda masukkan sebelum memulai analisis.</p>
+    <div className="flex-1 w-full max-w-lg mx-auto px-5 sm:px-6 py-8">
+      <AssessmentSteps current={1} />
+
+      <div className="mt-10 mb-7">
+        <Link href="/assessment" className="inline-flex items-center gap-1.5 text-muted hover:text-primary text-sm mb-4 transition-colors">
+          <ArrowLeft size={15} /> Kembali
+        </Link>
+        <h1 className="font-display text-2xl font-bold text-primary tracking-tight mb-2">Konfirmasi data</h1>
+        <p className="text-muted text-[15px]">Periksa kembali data kamu sebelum memulai analisis.</p>
       </div>
-      <div className="bg-white rounded-3xl shadow-card border border-border p-6 mb-5">
-        <h3 className="font-cinzel font-bold text-base text-primary mb-5">Data Analisis</h3>
-        <div className="space-y-4">
-          {[{ icon: User, label: 'Nama Lengkap', value: draft.name, color: 'gold', bg: 'bg-gold/10' }, { icon: Calendar, label: 'Tanggal Lahir', value: formatDate(draft.birthDate), color: 'ai-blue', bg: 'bg-ai-blue/10' }, { icon: Droplets, label: 'Golongan Darah', value: draft.bloodType, color: 'red', bg: 'bg-red-50' }].map(({ icon: Icon, label, value, bg }, i) => (
-            <div key={i} className="flex items-center gap-4 p-4 bg-surface rounded-2xl">
-              <div className={`w-10 h-10 ${bg} rounded-xl flex items-center justify-center flex-shrink-0`}><Icon size={18} className="text-muted" /></div>
-              <div><p className="text-xs text-muted font-montserrat mb-0.5">{label}</p><p className="font-bold text-primary font-montserrat">{value}</p></div>
+
+      <div className="bg-white rounded-3xl border border-border shadow-soft p-2 mb-5">
+        {rows.map(({ icon: Icon, label, value }, i) => (
+          <div key={label} className={`flex items-center gap-4 p-4 ${i < rows.length - 1 ? 'border-b border-border' : ''}`}>
+            <div className="w-10 h-10 rounded-xl bg-surface border border-border flex items-center justify-center shrink-0">
+              <Icon size={17} className="text-primary" strokeWidth={1.75} />
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 mb-6">
-        <div className="flex items-start gap-3">
-          <AlertTriangle size={20} className="text-amber-500 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="font-semibold text-amber-800 font-montserrat text-sm mb-1">Perhatian Penting</p>
-            <p className="text-amber-700 text-xs font-montserrat leading-relaxed">Data <strong>tidak dapat diedit</strong> setelah pemrosesan dimulai. Pastikan nama, tanggal lahir, dan golongan darah sesuai dengan dokumen resmi Anda.</p>
+            <div>
+              <p className="text-xs text-muted mb-0.5">{label}</p>
+              <p className="font-semibold text-primary">{value}</p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-      <Button variant="gold" size="xl" fullWidth loading={loading} onClick={handleConfirm} className="shadow-gold">Konfirmasi &amp; Mulai Analisis →</Button>
-      <p className="text-xs text-muted text-center mt-4 font-montserrat">Dengan melanjutkan, Anda menyetujui bahwa data yang dimasukkan adalah benar.</p>
+
+      <div className="flex items-start gap-3 rounded-2xl bg-amber-50 border border-amber-200/70 p-4 mb-6">
+        <AlertTriangle size={18} className="text-amber-500 shrink-0 mt-0.5" />
+        <p className="text-amber-800 text-xs leading-relaxed">
+          Data <strong>tidak dapat diedit</strong> setelah pemrosesan dimulai. Pastikan nama, tanggal lahir, dan golongan darah sudah benar.
+        </p>
+      </div>
+
+      <Button variant="primary" size="xl" fullWidth loading={loading} onClick={handleConfirm} className="group">
+        Konfirmasi &amp; mulai analisis
+        <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
+      </Button>
     </div>
   )
 }
